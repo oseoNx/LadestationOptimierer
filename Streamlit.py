@@ -62,6 +62,7 @@ def df_growth(df, ev_growth, pop_growth, sector_3_growth):
     print('loadmdl')
     df_estm['Ladestationen_optimiert'] = mdl.predict(df_estm.drop(columns=['Ladestationen_optimiert','aktl_Ladestationen','EU_Anforderung','EU Differenz','BFS-Nr','Differenz'],axis=1))
     print('model')
+    print(df_estm['Ladestationen_optimiert'])
     df_estm['EU_Anforderung'] = df_estm['EV_Bestand_2021'].astype('int64') / 10 
     df_estm['EU_Anforderung'] = df_estm(lambda x: int(x['EU_Anforderung']), axis=1)
     print('eu')
