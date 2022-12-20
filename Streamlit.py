@@ -210,12 +210,12 @@ with tab3:
         'Geben Sie eine Gemeinde ein',
         df.index,
         ['Zürich'],
-        key=7)
+        key=8)
        # max_selections = 1)
 
-    przEinw = st.slider('Geben Sie bitte die Einwohnerwachstumsrate an.', 0, 1, 0.02, key=8)
-    prz3Sek = st.slider('Geben Sie bitte die Wachstumsrate der Arbeitende im 3. Sektor an.', 0, 1, 0.02, key=9)
-    przEV = st.slider('Geben Sie bitte die EV-Wachstumsrate an.', 0, 1, 0.02, key=10)
+    przEinw = st.slider('Geben Sie bitte die Einwohnerwachstumsrate an.', 0, 1, 0.02, key=9)
+    prz3Sek = st.slider('Geben Sie bitte die Wachstumsrate der Arbeitende im 3. Sektor an.', 0, 1, 0.02, key=10)
+    przEV = st.slider('Geben Sie bitte die EV-Wachstumsrate an.', 0, 1, 0.02, key=11)
     
     
     try:
