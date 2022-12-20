@@ -3,9 +3,9 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - pandas=1.5.2=py39h07fba90_0
-  - geopandas=0.12.2=pyhd8ed1ab_0
-  - plotly=5.9.0=py39hecd8cb5_0
-  - streamlit=1.11.0=py39hecd8cb5_0
+  - pandas=1.5.2
+  - geopandas=0.12.2
+  - plotly=5.9.0
+  - streamlit=1.11.0
  
 prefix: /Users/alex/opt/anaconda3
