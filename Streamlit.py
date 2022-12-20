@@ -213,10 +213,10 @@ with tab3:
         ['Zürich'],
         key=8)
        # max_selections = 1)
-
-    przEinw = st.slider('Geben Sie bitte die Einwohnerwachstumsrate an.', 0.0, 1.0, 0.02, key=9)
-    prz3Sek = st.slider('Geben Sie bitte die Wachstumsrate der Arbeitende im 3. Sektor an.', 0.0, 1.0, 0.02, key=10)
-    przEV = st.slider('Geben Sie bitte die EV-Wachstumsrate an.', 0.0, 1.0, 0.02, key=11)
+    row1_col1, row1_col2, row1_col3 = st.columns([2.5,2.5,2.5])
+    przEinw = row1_col1.slider('Geben Sie bitte die Einwohnerwachstumsrate an.', 0.0, 1.0, 0.02, key=9)
+    prz3Sek = row1_col2.slider('Geben Sie bitte die Wachstumsrate der Arbeitende im 3. Sektor an.', 0.0, 1.0, 0.05, key=10)
+    przEV = row1_col3.slider('Geben Sie bitte die EV-Wachstumsrate an.', 0.0, 1.0, 0.3, key=11)
     
     
     try:
@@ -224,22 +224,22 @@ with tab3:
         doc2=EVdf[EVdf.Gemeindename.isin(options4)]
         
         
-        row1_col1, row1_col2, row1_col3, row1_col4, row1_col5, row1_col6 = st.columns([2.5,2.5,2,2.5,2.5,2.5])
-        row2_col1, row2_col2, row2_col3, row2_col4, row2_col5, row2_col6 = st.columns([2.5,2.5,2.5,2.5,2.5,2.5])
+        row2_col1, row2_col2, row2_col3, row2_col4, row2_col5, row2_col6 = st.columns([2.5,2.5,2,2.5,2.5,2.5])
+        row3_col1, row3_col2, row3_col3, row3_col4, row3_col5, row1_col6 = st.columns([2.5,2.5,2.5,2.5,2.5,2.5])
         
-        row2_col2.metric("Optimale Anz. Ladestationen", str(int(doc['Ladestationen_optimiert'].values[0])), str( int(0-doc['Differenz'].values[0].round(0))),delta_color="off", help='Das Delta zeigt die Differenz zur aktuellen Anz. Ladestation an.' )
+        row3_col2.metric("Optimale Anz. Ladestationen", str(int(doc['Ladestationen_optimiert'].values[0])), str( int(0-doc['Differenz'].values[0].round(0))),delta_color="off", help='Das Delta zeigt die Differenz zur aktuellen Anz. Ladestation an.' )
         print(1)
-        row2_col4.metric("Einwohner Anz.", str(int(doc['Anz_Einwohner'].values[0])))
+        row3_col4.metric("Einwohner Anz.", str(int(doc['Anz_Einwohner'].values[0])))
         print(2)
-        row2_col6.metric("Anz. EV Bestand 2021", str(int(doc['EV_Bestand_2021'].values[0])), str(int((doc['EV_Bestand_2021'].values[0] - doc2['EV_Bestand_2021'].values[0]))),help='Das Delta zeigt die Differenz zum Bestand EV 2020 an.')
+        row3_col6.metric("Anz. EV Bestand 2021", str(int(doc['EV_Bestand_2021'].values[0])), str(int((doc['EV_Bestand_2021'].values[0] - doc2['EV_Bestand_2021'].values[0]))),help='Das Delta zeigt die Differenz zum Bestand EV 2020 an.')
         print(3)
-        row1_col1.metric("Akutelle Anz. Ladestationen", str(int(doc['aktl_Ladestationen'].values[0])))
+        row2_col1.metric("Akutelle Anz. Ladestationen", str(int(doc['aktl_Ladestationen'].values[0])))
         print(4)
-        row1_col5.metric("Arbeitende im 3. Sektor", str(int(doc['Beschäftigte_3_Sektor'].values[0])))
+        row2_col5.metric("Arbeitende im 3. Sektor", str(int(doc['Beschäftigte_3_Sektor'].values[0])))
         print(5)
-        #row2_col4.metric("Strassenlänge (Km)", str(int(doc['Strassenlänge(km)'].values[0])))
+        #row3_col4.metric("Strassenlänge (Km)", str(int(doc['Strassenlänge(km)'].values[0])))
         print(6)
-        row1_col3.metric("EU Anfforderung", str(int(doc['EU_Anforderung'].values[0])), str( int(doc['EU Differenz'].values[0])), help='Gemäss EU Anfforderungen müssen pro 10 EV einen öffentlichen Ladepunkt gewährleistet werden. Das Delta zeigt die Differenz zur Anfforderung auf.')
+        row2_col3.metric("EU Anfforderung", str(int(doc['EU_Anforderung'].values[0])), str( int(doc['EU Differenz'].values[0])), help='Gemäss EU Anfforderungen müssen pro 10 EV einen öffentlichen Ladepunkt gewährleistet werden. Das Delta zeigt die Differenz zur Anfforderung auf.')
         print(7)
     
     
