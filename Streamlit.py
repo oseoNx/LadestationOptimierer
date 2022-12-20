@@ -53,16 +53,15 @@ def df_growth(df, ev_growth, pop_growth, sector_3_growth):
     print('f start')
     df_estm = df.copy()
     print('copy')
-    df_estm['EV_Bestand_2021'] = np.floor(df_estm['EV_Bestand_2021'] * (1+ev_growth))
-    df_estm['Anz_Einwohner'] = np.floor(df_estm['Anz_Einwohner'] * (1+pop_growth))
+    df_estm['EV_Bestand_2021'] = np.floor(df_estm['EV_Bestand_2021'] * (1+ev_growth)).istype('int')
+    df_estm['Anz_Einwohner'] = np.floor(df_estm['Anz_Einwohner'] * (1+pop_growth)).istype('int')
     df_estm['Beschäftigte_3_Sektor'] = np.floor(df_estm['Beschäftigte_3_Sektor'] * (1+sector_3_growth))
     print('wachstum')
     mdl = load_model()
     print('loadmdl')
     df_estm['Ladestationen_optimiert'] = mdl.predict(df_estm.drop(columns=['Ladestationen_optimiert','aktl_Ladestationen','EU_Anforderung','EU Differenz','BFS-Nr','Differenz'],axis=1))
     print('model')
-    print(df_estm['Ladestationen_optimiert'])
-    df_estm['EU_Anforderung'] = df_estm['EV_Bestand_2021'].astype('int64') / 10 
+    df_estm['EU_Anforderung'] = df_estm['EV_Bestand_2021'] / 10 
     df_estm['EU_Anforderung'] = df_estm(lambda x: int(x['EU_Anforderung']), axis=1)
     print('eu')
     return df_estm
