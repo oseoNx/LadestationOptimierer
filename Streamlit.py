@@ -69,7 +69,8 @@ def df_growth(df, ev_growth, pop_growth, sector_3_growth, mdl):
 st.set_page_config(
     page_title= "Ladestation Optimierer",
     page_icon = "🔋",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
     )
 st.title('Ladestationen Schweiz Übersicht')
 
@@ -240,7 +241,7 @@ with tab2:
 
     
 if agree:
-    st.warning('Schalten Sie den Wachstumsrechner an der Sidebar an.'
+    st.warning('Schalten Sie den Wachstumsrechner in der Sidebar ein.'
                  ,icon="⚠️")
 else:
     with tab3:
