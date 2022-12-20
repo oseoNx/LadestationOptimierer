@@ -36,6 +36,20 @@ def load_stations():
 
 def find_center(GemName, gdf):
     return gdf[gdf.index.isin(GemName)].geometry.values[0].centroid
+
+def df_growth(df, ev_growth, pop_growth, sector_3_growth):
+
+    df_estm = df.copy()
+
+    df_estm['EV_Bestand_2021'] = np.floor(df_estm['EV_Bestand_2021'] * (1+ev_growth))
+    df_estm['Anz_Einwohner'] = np.floor(df_estm['Anz_Einwohner'] * (1+pop_growth))
+    df_estm['Beschäftigte_3_Sektor'] = np.floor(df_estm['Beschäftigte_3_Sektor'] * (1+sector_3_growth))
+    df_estm['EU_Anforderung'] = df_estm['EV_Bestand_2021'] / 10 
+    df_estm['EU_Anforderung'] = df_estm(lambda x: int(x['EU_Anforderung']), axis=1)
+    df_estm['EU Differenz'] = df_estm['aktl_Ladestationen'] - df['EU_Anforderung']
+
+    return df_estm
+
     
 st.set_page_config(
     page_title= "Ladestation Optimierer",
@@ -214,33 +228,52 @@ with tab3:
         key=8)
        # max_selections = 1)
     row1_col1, row1_col2, row1_col3 = st.columns([2.5,2.5,2.5])
-    przEinw = row1_col1.slider('Geben Sie bitte die Einwohnerwachstumsrate an.', 0.0, 1.0, 0.02, key=9)
+    przEinw = row1_col1.slider('Geben Sie bitte die Einwohnerwachstumsrate an.', 0.0, 0.5, 0.007, key=9)
     prz3Sek = row1_col2.slider('Geben Sie bitte die Wachstumsrate der Arbeitende im 3. Sektor an.', 0.0, 1.0, 0.05, key=10)
-    przEV = row1_col3.slider('Geben Sie bitte die EV-Wachstumsrate an.', 0.0, 1.0, 0.3, key=11)
+    przEV = row1_col3.slider('Geben Sie bitte die EV-Wachstumsrate an.', 0.0, 2.0, 0.6, key=11)
     
     
     try:
         doc =df[df.index.isin(options4)]
         doc2=EVdf[EVdf.Gemeindename.isin(options4)]
         
+        doc3 = df_growth(doc, przEV, przEinw, prz3Sek)
         
         row2_col1, row2_col2, row2_col3, row2_col4, row2_col5, row2_col6 = st.columns([2.5,2.5,2,2.5,2.5,2.5])
         row3_col1, row3_col2, row3_col3, row3_col4, row3_col5, row3_col6 = st.columns([2.5,2.5,2.5,2.5,2.5,2.5])
-        
-        row3_col2.metric("Optimale Anz. Ladestationen", str(int(doc['Ladestationen_optimiert'].values[0])), str( int(0-doc['Differenz'].values[0].round(0))),delta_color="off", help='Das Delta zeigt die Differenz zur aktuellen Anz. Ladestation an.' )
+
+        ### Darstellung 2021 ###
+        row2_col1.metric("Optimale Anz. Ladestationen ALT", str(int(doc['Ladestationen_optimiert'].values[0])), str( int(0-doc['Differenz'].values[0].round(0))),delta_color="off", help='Das Delta zeigt die Differenz zur aktuellen Anz. Ladestation an.' )
         print(1)
-        row3_col4.metric("Einwohner Anz.", str(int(doc['Anz_Einwohner'].values[0])))
+        row2_col4.metric("Einwohner Anz. ALT", str(int(doc['Anz_Einwohner'].values[0])))
         print(2)
-        row3_col6.metric("Anz. EV Bestand 2021", str(int(doc['EV_Bestand_2021'].values[0])), str(int((doc['EV_Bestand_2021'].values[0] - doc2['EV_Bestand_2021'].values[0]))),help='Das Delta zeigt die Differenz zum Bestand EV 2020 an.')
+        row2_col6.metric("Anz. EV Bestand ALT", str(int(doc['EV_Bestand_2021'].values[0])), str(int((doc['EV_Bestand_2021'].values[0] - doc2['EV_Bestand_2021'].values[0]))),help='Das Delta zeigt die Differenz zum Bestand EV 2020 an.')
         print(3)
-        row2_col1.metric("Akutelle Anz. Ladestationen", str(int(doc['aktl_Ladestationen'].values[0])))
+        row2_col1.metric("Akutelle Anz. Ladestationen ALT", str(int(doc['aktl_Ladestationen'].values[0])))
         print(4)
-        row2_col5.metric("Arbeitende im 3. Sektor", str(int(doc['Beschäftigte_3_Sektor'].values[0])))
+        row2_col5.metric("Arbeitende im 3. Sektor ALT", str(int(doc['Beschäftigte_3_Sektor'].values[0])))
         print(5)
         #row3_col4.metric("Strassenlänge (Km)", str(int(doc['Strassenlänge(km)'].values[0])))
         print(6)
-        row2_col3.metric("EU Anfforderung", str(int(doc['EU_Anforderung'].values[0])), str( int(doc['EU Differenz'].values[0])), help='Gemäss EU Anfforderungen müssen pro 10 EV einen öffentlichen Ladepunkt gewährleistet werden. Das Delta zeigt die Differenz zur Anfforderung auf.')
+        row2_col3.metric("EU Anfforderung ALT", str(int(doc['EU_Anforderung'].values[0])), str( int(doc['EU Differenz'].values[0])), help='Gemäss EU Anfforderungen müssen pro 10 EV einen öffentlichen Ladepunkt gewährleistet werden. Das Delta zeigt die Differenz zur Anfforderung auf.')
         print(7)
+        
+
+        ### Darstellung mit Wachstumsrate ###
+        row3_col1.metric("Optimale Anz. Ladestationen NEU", str(int(doc3['Ladestationen_optimiert'].values[0])), str( int(0-doc3['Differenz'].values[0].round(0))),delta_color="off", help='Das Delta zeigt die Differenz zur aktuellen Anz. Ladestation an.' )
+        print(8)
+        row3_col4.metric("Einwohner Anz. NEU", str(int(doc3['Anz_Einwohner'].values[0])))
+        print(9)
+        row3_col6.metric("Anz. EV Bestand NEU", str(int(doc3['EV_Bestand_2021'].values[0])), str(int((doc3['EV_Bestand_2021'].values[0] - doc2['EV_Bestand_2021'].values[0]))),help='Das Delta zeigt die Differenz zum Bestand EV 2020 an.')
+        print(10)
+        row3_col1.metric("Akutelle Anz. Ladestationen NEU", str(int(doc3['aktl_Ladestationen'].values[0])))
+        print(11)
+        row3_col5.metric("Arbeitende im 3. Sektor NEU", str(int(doc3['Beschäftigte_3_Sektor'].values[0])))
+        print(12)
+        #row3_col4.metric("Strassenlänge (Km)", str(int(doc['Strassenlänge(km)'].values[0])))
+        print(13)
+        row3_col3.metric("EU Anfforderung NEU", str(int(doc['EU_Anforderung'].values[0])), str( int(doc3['EU Differenz'].values[0])), help='Gemäss EU Anfforderungen müssen pro 10 EV einen öffentlichen Ladepunkt gewährleistet werden. Das Delta zeigt die Differenz zur Anfforderung auf.')
+        print(14)
     
     
     except:
