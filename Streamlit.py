@@ -14,24 +14,24 @@ from shapely import wkt
 
 @st.cache(allow_output_mutation=True)
 def load_data():
-    data = pd.read_csv('final_data.csv', index_col='Gemeindename')
+    data = pd.read_csv('./Data/final_data.csv', index_col='Gemeindename')
     return data
 
 
 @st.cache(allow_output_mutation=True)
 def load_borders():
-    borders = pd.read_csv("GemeindeGrenzen_Vereinfacht.csv", index_col='GemeindeLabel')
+    borders = pd.read_csv("./Data/GemeindeGrenzen_Vereinfacht.csv", index_col='GemeindeLabel')
     borders['geometry'] = borders['geometry'].apply(wkt.loads)
     return gpd.GeoDataFrame(borders)
 
 @st.cache(allow_output_mutation=True)
 def load_EV():
-    EV = pd.read_csv('aggrigated_data.csv', index_col='BFS-Nr')
+    EV = pd.read_csv('./Data/aggrigated_data.csv', index_col='BFS-Nr')
     return EV[['Gemeindename','EV_Bestand_2010', 'EV_Bestand_2011', 'EV_Bestand_2012', 'EV_Bestand_2013', 'EV_Bestand_2014', 'EV_Bestand_2015', 'EV_Bestand_2016', 'EV_Bestand_2017', 'EV_Bestand_2018', 'EV_Bestand_2019', 'EV_Bestand_2020', 'EV_Bestand_2021']]
 
 @st.cache()
 def load_stations():
-    stations = pd.read_csv('Chargingstations_melted.csv')
+    stations = pd.read_csv('./Data/Chargingstations_melted.csv')
     return stations
 
 def find_center(GemName, gdf):
