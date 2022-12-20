@@ -90,7 +90,7 @@ with tab1:
     
         select = st.selectbox(
         'Bitte wählen Sie einen Kartenfilter aus',
-        df.drop(['BFS-Nr','Gemeinde_Kategorie'],axis=1).columns, index=24, key=1)
+        df.drop(['BFS-Nr','Gemeinde_Kategorie'],axis=1).columns, index=24, key=2)
         
         fig1 = px.choropleth_mapbox(df,
                                geojson=borders.geometry,
@@ -113,7 +113,7 @@ with tab2:
     
     select2 = st.selectbox(
     'Bitte wählen Sie einen Kartenfilter aus',
-    df.drop(['BFS-Nr','Gemeinde_Kategorie'],axis=1).columns, index=24, key=2)
+    df.drop(['BFS-Nr','Gemeinde_Kategorie'],axis=1).columns, index=24, key=3)
 
     fig2 = px.choropleth_mapbox(df,
                            geojson=borders.geometry,
@@ -134,7 +134,7 @@ with tab2:
     options2 = row3_col1.multiselect(
         'Welche Gemeinde wollen Sie vergleichen?',
         EVdf['Gemeindename'],
-        ['Zürich', 'Basel', 'Bern', 'St. Gallen'])
+        ['Zürich', 'Basel', 'Bern', 'St. Gallen'],key=4)
     
     melt_df = EVdf.melt(id_vars=['Gemeindename'],var_name='year',value_name='anzahl EV')
     melt_df['year'] = melt_df.apply(lambda x: x['year'].replace('EV_Bestand_',''),axis=1)
@@ -158,7 +158,7 @@ with tab2:
         'Welche Kantone wollen Sie vergleichen?',
         pd.unique(stations['Canton']),
         ['ZH', 'SG', 'AG', 'BS'],
-        key=2)
+        key=5)
     
     filtered_stations = stations[stations['Canton'].isin(options3)]
     
@@ -186,7 +186,7 @@ with tab2:
         'Welche Gemeinde wollen Sie vergleichen?',
         df.index,
         ['Zürich', 'Basel', 'Bern', 'St. Gallen'],
-        key=3)
+        key=6)
     
     select3 = row4_col2.selectbox(
     'Bitte wählen Sie einen Kartenfilter aus',
