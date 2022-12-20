@@ -47,9 +47,9 @@ def find_center(GemName, gdf):
     return gdf[gdf.index.isin(GemName)].geometry.values[0].centroid
 
 def df_growth(df, ev_growth, pop_growth, sector_3_growth):
-
+    print('f start')
     df_estm = df.copy()
-
+    print('copy')
     df_estm['EV_Bestand_2021'] = np.floor(df_estm['EV_Bestand_2021'] * (1+ev_growth))
     df_estm['Anz_Einwohner'] = np.floor(df_estm['Anz_Einwohner'] * (1+pop_growth))
     df_estm['Beschäftigte_3_Sektor'] = np.floor(df_estm['Beschäftigte_3_Sektor'] * (1+sector_3_growth))
