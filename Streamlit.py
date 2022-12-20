@@ -49,7 +49,7 @@ def load_model():
 def find_center(GemName, gdf):
     return gdf[gdf.index.isin(GemName)].geometry.values[0].centroid
 
-def df_growth(df, ev_growth, pop_growth, sector_3_growth):
+def df_growth(df, ev_growth, pop_growth, sector_3_growth, mdl):
     print('f start')
     df_estm = df.copy()
     print('copy')
@@ -57,8 +57,6 @@ def df_growth(df, ev_growth, pop_growth, sector_3_growth):
     df_estm['Anz_Einwohner'] = np.floor(df_estm['Anz_Einwohner'] * (1+pop_growth))
     df_estm['Beschäftigte_3_Sektor'] = np.floor(df_estm['Beschäftigte_3_Sektor'] * (1+sector_3_growth))
     print('wachstum')
-    mdl = load_model()
-    print('loadmdl')
     df_estm['Ladestationen_optimiert'] = mdl.predict(df_estm.drop(columns=['Ladestationen_optimiert','aktl_Ladestationen','EU_Anforderung','EU Differenz','BFS-Nr','Differenz'],axis=1))
     print('model')
     '''
@@ -254,14 +252,14 @@ with tab3:
     prz3Sek = row1_col2.slider('Geben Sie bitte die Wachstumsrate der Arbeitende im 3. Sektor an.', 0.0, 1.0, 0.05, key=10)
     przEV = row1_col3.slider('Geben Sie bitte die EV-Wachstumsrate an.', 0.0, 2.0, 0.6, key=11)
     
-    
+    mdl1 = load_model()
 
     try:
         doc =df[df.index.isin(options4)]
         doc2=EVdf[EVdf.Gemeindename.isin(options4)]
         print('a')
-        st.write(str(df_growth(doc, przEV, przEinw, prz3Sek)))
-        doc3 = df_growth(doc, przEV, przEinw, prz3Sek)
+        st.write(str(df_growth(doc, przEV, przEinw, prz3Sek)['Ladestationen_optimiert']))
+        doc3 = df_growth(doc, przEV, przEinw, prz3Sek,mdl1)
         print('b')
         row2_col1, row2_col2, row2_col3, row2_col4, row2_col5, row2_col6 = st.columns([2.5,2.5,2,2.5,2.5,2.5])
         row3_col1, row3_col2, row3_col3, row3_col4, row3_col5, row3_col6 = st.columns([2.5,2.5,2.5,2.5,2.5,2.5])
