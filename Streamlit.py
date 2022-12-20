@@ -225,7 +225,7 @@ with tab3:
         
         
         row2_col1, row2_col2, row2_col3, row2_col4, row2_col5, row2_col6 = st.columns([2.5,2.5,2,2.5,2.5,2.5])
-        row3_col1, row3_col2, row3_col3, row3_col4, row3_col5, row1_col6 = st.columns([2.5,2.5,2.5,2.5,2.5,2.5])
+        row3_col1, row3_col2, row3_col3, row3_col4, row3_col5, row3_col6 = st.columns([2.5,2.5,2.5,2.5,2.5,2.5])
         
         row3_col2.metric("Optimale Anz. Ladestationen", str(int(doc['Ladestationen_optimiert'].values[0])), str( int(0-doc['Differenz'].values[0].round(0))),delta_color="off", help='Das Delta zeigt die Differenz zur aktuellen Anz. Ladestation an.' )
         print(1)
