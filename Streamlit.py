@@ -94,9 +94,9 @@ with tab1:
     options1 = st.multiselect(
         'Geben Sie eine Gemeinde ein',
         df.index,
-        ['Zürich'],
-        key=1)
-       # max_selections = 1)
+        ['St. Gallen'],
+        key=1
+        ,max_selections = 1)
     try:
         loc =df[df.index.isin(options1)]
         loc2=EVdf[EVdf.Gemeindename.isin(options1)]
@@ -243,8 +243,8 @@ with tab3:
         'Geben Sie eine Gemeinde ein',
         df.index,
         ['St. Gallen'],
-        key=8)
-       # max_selections = 1)
+        key=8
+        ,max_selections = 1)
     row1_col1, row1_col2, row1_col3 = st.columns([2.5,2.5,2.5])
     przEinw = row1_col1.slider('Geben Sie bitte die Einwohnerwachstumsrate an.', 0.0, 0.5, 0.007, key=9)
     prz3Sek = row1_col2.slider('Geben Sie bitte die Wachstumsrate der Arbeitende im 3. Sektor an.', 0.0, 1.0, 0.05, key=10)
