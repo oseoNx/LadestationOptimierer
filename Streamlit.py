@@ -26,7 +26,7 @@ def load_borders():
 
 @st.cache(allow_output_mutation=True)
 def load_EV():
-    EV = pd.read_csv('aggrigated_data.csv', index_col='BFS-Nr',low_memory=False)
+    EV = pd.read_csv('aggrigated_data.csv', index_col='BFS-Nr')
     return EV[['Gemeindename','EV_Bestand_2010', 'EV_Bestand_2011', 'EV_Bestand_2012', 'EV_Bestand_2013', 'EV_Bestand_2014', 'EV_Bestand_2015', 'EV_Bestand_2016', 'EV_Bestand_2017', 'EV_Bestand_2018', 'EV_Bestand_2019', 'EV_Bestand_2020', 'EV_Bestand_2021']]
 
 @st.cache()
