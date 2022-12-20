@@ -258,7 +258,7 @@ with tab3:
         doc =df[df.index.isin(options4)]
         doc2=EVdf[EVdf.Gemeindename.isin(options4)]
         print('a')
-        st.write(type(df_growth(doc, przEV, przEinw, prz3Sek,mdl1)))
+        st.write(df_growth(doc, przEV, przEinw, prz3Sek,mdl1)['Ladestationen_optimiert'])
         doc3 = df_growth(doc, przEV, przEinw, prz3Sek,mdl1)
         print('b')
         row2_col1, row2_col2, row2_col3, row2_col4, row2_col5, row2_col6 = st.columns([2.5,2.5,2,2.5,2.5,2.5])
