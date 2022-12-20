@@ -39,7 +39,7 @@ def load_stations():
     stations = pd.read_csv('./Data/Chargingstations_melted.csv')
     return stations
 
-@st.cache()
+
 def load_model():
     loaded_model = pickle.load(open('./Data/finalized_model.sav', 'rb'))
     print('loaded successfull')
