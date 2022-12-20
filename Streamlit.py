@@ -90,7 +90,7 @@ load_model().predict(df.drop(columns=['Ladestationen_optimiert','aktl_Ladestatio
 tab1, tab2, tab3 = st.tabs(["Analyse nach Gemeinde", "Analyse Schweiz","Wachstumsrechner"])
 with st.sidebar:
     st.subheader("About")
-    st.caption('Das Ziel von dieser Data-App ist es, private Unternehmen und Behörden bei der Optimierung der Ladestations-Standorte zu unterstützen. Zu diesem Zweck nutzen wir ein Machine Learning Algorithmus basierend auf einer breiten Palette von Datenpunkten aus verschiedenen öffentlichen Datenquellen.')
+    st.caption('Das Ziel von dieser Data-App ist es, private Unternehmen und Behörden bei der Optimierung der Ladestationstandorte zu unterstützen. Zu diesem Zweck nutzen wir ein Machine Learning Algorithmus basierend auf einer breiten Palette von Datenpunkten aus verschiedenen öffentlichen Datenquellen.')
     st.subheader("Options")
     agree = st.checkbox('Disable Wachstumsrechner (For better performance)', value= True)
     
@@ -246,8 +246,7 @@ with tab2:
     
 if agree:
     with tab3:
-        st.warning('Schalten Sie den Wachstumsrechner in der Sidebar ein.'
-                 ,icon="⚠️")
+        st.warning('Schalten Sie den Wachstumsrechner in der Sidebar ein.',icon="⚠️")
 else:
     with tab3:
 
