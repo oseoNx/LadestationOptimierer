@@ -55,14 +55,15 @@ def df_growth(df, ev_growth, pop_growth, sector_3_growth):
     df_estm['Anz_Einwohner'] = np.floor(df_estm['Anz_Einwohner'] * (1+pop_growth))
     df_estm['Beschäftigte_3_Sektor'] = np.floor(df_estm['Beschäftigte_3_Sektor'] * (1+sector_3_growth))
     print('wachstum')
-    df_estm['Ladestationen_optimiert'] = load_model().predict(df_estm.drop(columns=['Ladestationen_optimiert','aktl_Ladestationen','EU_Anforderung','EU Differenz','BFS-Nr','Differenz'],axis=1))
+    mdl = load_model()
+    df_estm['Ladestationen_optimiert'] = mdl.predict(df_estm.drop(columns=['Ladestationen_optimiert','aktl_Ladestationen','EU_Anforderung','EU Differenz','BFS-Nr','Differenz'],axis=1))
     print('model')
     df_estm['EU_Anforderung'] = df_estm['EV_Bestand_2021'] / 10 
     df_estm['EU_Anforderung'] = df_estm(lambda x: int(x['EU_Anforderung']), axis=1)
     print('eu')
     return df_estm
 
-    
+
 st.set_page_config(
     page_title= "Ladestation Optimierer",
     page_icon = "🔋",
@@ -74,6 +75,8 @@ df = load_data()
 borders = load_borders()
 EVdf = load_EV()
 stations = load_stations()
+
+print(df.drop(columns=['Ladestationen_optimiert','aktl_Ladestationen','EU_Anforderung','EU Differenz','BFS-Nr','Differenz'],axis=1).columns)
 
 df['EU_Anforderung'] = df['EV_Bestand_2021'] / 10 
 df['EU_Anforderung'] = df.apply(lambda x: int(x['EU_Anforderung']), axis=1)
