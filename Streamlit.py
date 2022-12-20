@@ -13,6 +13,7 @@ import plotly.express as px
 import pickle
 import numpy as np
 import sklearn
+import xgboost
 from shapely import wkt
 
 
