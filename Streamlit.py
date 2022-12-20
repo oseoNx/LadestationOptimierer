@@ -82,7 +82,8 @@ stations = load_stations()
 df['EU_Anforderung'] = df['EV_Bestand_2021'] / 10 
 df['EU_Anforderung'] = df.apply(lambda x: int(x['EU_Anforderung']), axis=1)
 df['EU Differenz'] = df['aktl_Ladestationen'] - df['EU_Anforderung']
-print(df.drop(columns=['Ladestationen_optimiert','aktl_Ladestationen','EU_Anforderung','EU Differenz','BFS-Nr','Differenz'],axis=1).columns)
+
+load_model().predict(df.drop(columns=['Ladestationen_optimiert','aktl_Ladestationen','EU_Anforderung','EU Differenz','BFS-Nr','Differenz'],axis=1))
 
 tab1, tab2, tab3 = st.tabs(["Analyse nach Gemeinde", "Analyse Schweiz","Wachstumsrechner"])
 
