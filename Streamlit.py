@@ -190,7 +190,7 @@ with tab2:
     
     select3 = row4_col2.selectbox(
     'Bitte wählen Sie einen Kartenfilter aus',
-    df.drop(['BFS-Nr','Gemeinde_Kategorie'],axis=1).columns, index=1, key=3)
+    df.drop(['BFS-Nr','Gemeinde_Kategorie'],axis=1).columns, index=1, key=7)
     
     filtered_data = df[df.index.isin(options3)]
     
