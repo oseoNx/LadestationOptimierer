@@ -61,7 +61,7 @@ def df_growth(df, ev_growth, pop_growth, sector_3_growth, mdl):
     print('model')
     df_estm['EU_Anforderung'] = df_estm['EV_Bestand_2021'] / 10 
     print('rechnung1')
-    df_estm['EU_Anforderung'] = df_estm(lambda x: int(x['EU_Anforderung']), axis=1)
+    df_estm['EU_Anforderung'] = df_estm.apply(lambda x: int(x['EU_Anforderung']), axis=1)
     print('eu')
     return df_estm
 
