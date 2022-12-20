@@ -10,7 +10,11 @@ import streamlit as st
 import pandas as pd
 import geopandas as gpd
 import plotly.express as px
+import pickle
+import numpy as np
+import sklearn
 from shapely import wkt
+
 
 @st.cache(allow_output_mutation=True)
 def load_data():
@@ -34,6 +38,11 @@ def load_stations():
     stations = pd.read_csv('./Data/Chargingstations_melted.csv')
     return stations
 
+@st.cache()
+def load_model():
+    loaded_model = pickle.load(open('./Data/finalized_model.sav', 'rb'))
+    return loaded_model
+
 def find_center(GemName, gdf):
     return gdf[gdf.index.isin(GemName)].geometry.values[0].centroid
 
@@ -44,10 +53,13 @@ def df_growth(df, ev_growth, pop_growth, sector_3_growth):
     df_estm['EV_Bestand_2021'] = np.floor(df_estm['EV_Bestand_2021'] * (1+ev_growth))
     df_estm['Anz_Einwohner'] = np.floor(df_estm['Anz_Einwohner'] * (1+pop_growth))
     df_estm['Beschäftigte_3_Sektor'] = np.floor(df_estm['Beschäftigte_3_Sektor'] * (1+sector_3_growth))
+    print('wachstum')
+    df_estm['Ladestationen_optimiert'] = load_model().predict(df_estm.drop(columns=['Ladestationen_optimiert','EU_Anforderung','EU Differenz','BFS-Nr'],axis=1))
+    print('model')
     df_estm['EU_Anforderung'] = df_estm['EV_Bestand_2021'] / 10 
     df_estm['EU_Anforderung'] = df_estm(lambda x: int(x['EU_Anforderung']), axis=1)
     df_estm['EU Differenz'] = df_estm['aktl_Ladestationen'] - df['EU_Anforderung']
-
+    print('eu')
     return df_estm
 
     
@@ -236,9 +248,9 @@ with tab3:
     try:
         doc =df[df.index.isin(options4)]
         doc2=EVdf[EVdf.Gemeindename.isin(options4)]
-        
+        print('a')
         doc3 = df_growth(doc, przEV, przEinw, prz3Sek)
-        
+        print('b')
         row2_col1, row2_col2, row2_col3, row2_col4, row2_col5, row2_col6 = st.columns([2.5,2.5,2,2.5,2.5,2.5])
         row3_col1, row3_col2, row3_col3, row3_col4, row3_col5, row3_col6 = st.columns([2.5,2.5,2.5,2.5,2.5,2.5])
 
