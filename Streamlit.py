@@ -130,7 +130,7 @@ with tab1:
                                color=select,
                                center={"lat": find_center(options1, borders).y, "lon": find_center(options1, borders).x},
                                mapbox_style="open-street-map",
-                               zoom=9,
+                               zoom=9.5,
                                color_continuous_scale="rdbu", range_color=[df[select].min()*0.2,df[select].max()*0.2],
                                opacity=0.5, height=800)
     
