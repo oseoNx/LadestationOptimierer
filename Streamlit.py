@@ -44,7 +44,6 @@ def load_model():
     loaded_model = pickle.load(open('./Data/RandomForest.sav', 'rb'))
     #loaded_model = xgb.Booster()
     #loaded_model.load_model("./Data/model.json")
-    print('loaded successfull')
     return loaded_model
 
 def find_center(GemName, gdf):
