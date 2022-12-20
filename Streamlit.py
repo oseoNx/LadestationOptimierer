@@ -41,7 +41,7 @@ def load_stations():
 
 
 def load_model():
-    loaded_model = joblib.load(open('./Data/RandomForest.sav', 'rb'))
+    loaded_model = pickle.load(open('./Data/RandomForest.sav', 'rb'))
     #loaded_model = xgb.Booster()
     #loaded_model.load_model("./Data/model.json")
     print('loaded successfull')
