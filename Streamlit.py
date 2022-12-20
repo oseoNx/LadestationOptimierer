@@ -41,6 +41,7 @@ def load_stations():
 @st.cache()
 def load_model():
     loaded_model = pickle.load(open('./Data/finalized_model.sav', 'rb'))
+    print('loaded successfull')
     return loaded_model
 
 def find_center(GemName, gdf):
