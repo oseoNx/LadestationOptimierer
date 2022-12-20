@@ -258,11 +258,13 @@ with tab3:
         print('a')
         doc3 = df_growth(doc, przEV, przEinw, prz3Sek,mdl1)
         print('b')
+        st.subheader("Aktuell")
         row2_col1, row2_col2, row2_col3, row2_col4, row2_col5, row2_col6 = st.columns([2.5,2.5,2,2.5,2.5,2.5])
+        st.subheader("Mit Wachstum")
         row3_col1, row3_col2, row3_col3, row3_col4, row3_col5, row3_col6 = st.columns([2.5,2.5,2.5,2.5,2.5,2.5])
 
         ### Darstellung 2021 ###
-        st.subheader("Aktuell")
+        
         row2_col1.metric("Optimale Anz. Ladestationen", str(int(doc['Ladestationen_optimiert'].values[0])), help='Das Delta zeigt die Differenz zur aktuellen Anz. Ladestation an.' )
         print(1)
         row2_col4.metric("Einwohner Anz.", str(int(doc['Anz_Einwohner'].values[0])))
@@ -280,7 +282,7 @@ with tab3:
         
 
         ### Darstellung mit Wachstumsrate ###
-        st.subheader("Mit Wachstum")
+        
         row3_col1.metric("Optimale Anz. Ladestationen", str(int(doc3['Ladestationen_optimiert'].values[0])), str( int(doc3['Ladestationen_optimiert'].values[0] - doc['Ladestationen_optimiert'].values[0])),delta_color="off", help='Das Delta zeigt die Differenz zum aktuellen Stand an.' )
         print(8)
         row3_col4.metric("Einwohner Anz.", str(int(doc3['Anz_Einwohner'].values[0])), str(int(doc3['Anz_Einwohner'].values[0] - doc['Anz_Einwohner'].values[0])), help='Das Delta zeigt die Differenz zum aktuellen Stand an.')
