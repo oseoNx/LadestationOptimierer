@@ -77,7 +77,7 @@ with tab1:
         print(1)
         row1_col3.metric("Einwohner Anz.", str(int(loc['Anz_Einwohner'].values[0])))
         print(2)
-        row1_col5.metric("Anz. EV Bestand 2021", str(int(loc['EV_Bestand_2021'].values[0])), str(int((loc['EV_Bestand_2021'].values[0] - loc2['EV_Bestand_2020'].values[0]).round(0))),help='Das Delta zeigt die Differenz zum Bestand EV 2020 an.')
+        row1_col5.metric("Anz. EV Bestand 2021", str(int(loc['EV_Bestand_2021'].values[0])), str(int((loc['EV_Bestand_2021'].values[0] - loc2['EV_Bestand_2020'].values[0]))),help='Das Delta zeigt die Differenz zum Bestand EV 2020 an.')
         print(3)
        # row2_col1.metric("Akutelle Anz. Ladestationen", str(int(loc['aktl_Ladestationen'].values[0])), str( int((loc['aktl_Ladestationen'] - df['aktl_Ladestationen'].mean()).values[0].round(0))),delta_color="off")
         print(4)
