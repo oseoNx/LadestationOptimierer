@@ -75,7 +75,11 @@ st.set_page_config(
     page_title= "Ladestation Optimierer",
     page_icon = "🔋",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="collapsed",
+    menu_items={
+        'About': 'Das Ziel von dieser Data-App ist es, private Unternehmen und Behörden bei der Optimierung der Ladestationstandorte zu unterstützen. Zu diesem Zweck nutzen wir ein Machine Learning Algorithmus basierend auf einer breiten Palette von Datenpunkten aus verschiedenen öffentlichen Datenquellen.',
+        'Report a bug': "https://github.com/oseoNx/LadestationOptimierer",
+    }
     )
 st.title('Ladestationen Schweiz Übersicht')
 
